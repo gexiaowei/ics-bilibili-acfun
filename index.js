@@ -1,23 +1,27 @@
+"use strict"
+
+const fs = require('fs');
 const ICS = require('ics');
+const acfun = require('./lib/acfun');
+const bilibili = require('./lib/bilibili');
 
 var ics = new ICS();
 
-ics.createEvent({
-    start: '2016-05-30 06:50',
-    end: '2016-05-30 15:00',
-    title: 'Bolder Boulder',
-    description: 'Annual 10-kilometer run in Boulder, Colorado',
-    location: 'Folsom Field, University of Colorado (finish line)',
-    url: 'http://www.bolderboulder.com/',
-    status: 'confirmed',
-    geo: { lat: 40.0095, lon: 105.2669 },
-    attendees: [
-        { name: 'Adam Gibbons', email: 'adam@example.com' },
-        { name: 'Brittany Seaton', email: 'brittany@example2.org' }
-    ],
-    categories: ['10k races', 'Memorial Day Weekend', 'Boulder CO']
-}, function () {
+return Promise
+    .all([bilibili(), acfun()])
+    .then(data => {
+        data[0].forEach(item => {
+            let {pub_date, ontime, title, season_id} = item;
+            ics.addEvent({
+                start: `${pub_date} ${ontime}`,
+                title: `bilibili-${title}`,
+                url: `http://bangumi.bilibili.com/anime/${season_id}`,
+                status: 'confirmed',
+                categories: ['bilibili', 'bangumis']
+            })
+        })
+        return ics.toFile();
+    })
+    .then(data => {
 
-});
-
-console.log('ics: ', ics);
+    })

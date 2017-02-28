@@ -24,7 +24,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "cheerio": "^0.22.0",
-    "ics": "^1.2.0",
+    "ics": "git@github.com:gexiaowei/ics.git",
     "request": "^2.79.0"
   }
 }
