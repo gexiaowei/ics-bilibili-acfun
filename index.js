@@ -18,7 +18,7 @@ return Promise
                 url: `http://bangumi.bilibili.com/anime/${season_id}`,
                 status: 'confirmed',
                 categories: ['bilibili', 'bangumis']
-            })
+            });
         });
         data[1].forEach(item => {
             let {pub_date, ontime, title, ep_index, url} = item;
@@ -28,7 +28,7 @@ return Promise
                 url: url,
                 status: 'confirmed',
                 categories: ['bilibili', 'bangumis']
-            })
+            });
         });
         return ics.toFile();
     });
