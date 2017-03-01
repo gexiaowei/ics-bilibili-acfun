@@ -31,7 +31,4 @@ return Promise
             })
         });
         return ics.toFile();
-    })
-    .then(data => {
-        console.log('data: ', data);
-    })
+    });
