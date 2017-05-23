@@ -12,7 +12,7 @@ return Promise
     .then(data => {
         data[0].forEach(item => {
             let {pub_date, ontime, title, ep_index, season_id} = item;
-            ics.addEvent({
+            addEvent({
                 start: `${pub_date} ${ontime}`,
                 title: `${title}(${ep_index})`,
                 url: `http://bangumi.bilibili.com/anime/${season_id}`,
@@ -22,7 +22,7 @@ return Promise
         });
         data[1].forEach(item => {
             let {pub_date, ontime, title, ep_index, url} = item;
-            ics.addEvent({
+            addEvent({
                 start: `${pub_date}`,
                 title: `${title}`,
                 url: url,
@@ -32,3 +32,9 @@ return Promise
         });
         return ics.toFile();
     });
+
+function addEvent(data) {
+    if (data['start'].match(/\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}/g)) {
+        ics.addEvent(data);
+    }
+}

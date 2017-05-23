@@ -59,4 +59,9 @@ typings/
 dist
 
 # vscode
-.vscode 
+.vscode/
+
+# idea
+.idea/
+
+event.ics
